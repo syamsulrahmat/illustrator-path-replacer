@@ -27,25 +27,12 @@
     <!-- Placement Mode Section -->
     <div class="card">
         <div class="card-title">Placement Mode</div>
-        <div class="radio-group">
-            <label class="radio-label">
-                <input type="radio" name="alignMode" value="absolute" checked>
-                <span class="radio-title">Source Position</span>
-                <span class="radio-tag">Default</span>
-            </label>
-            <label class="radio-label">
-                <input type="radio" name="alignMode" value="center">
-                <span class="radio-title">Center on Target</span>
-            </label>
-            <label class="radio-label">
-                <input type="radio" name="alignMode" value="fit">
-                <span class="radio-title">Fit to Target</span>
-            </label>
-            <label class="radio-label">
-                <input type="radio" name="alignMode" value="stretch">
-                <span class="radio-title">Stretch to Target</span>
-            </label>
-        </div>
+        <select id="alignMode" class="mode-select">
+            <option value="absolute" selected>Source Position</option>
+            <option value="center">Center on Target</option>
+            <option value="fit">Fit to Target</option>
+            <option value="stretch">Stretch to Target</option>
+        </select>
     </div>
 
     <!-- Actions -->

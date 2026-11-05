@@ -10,6 +10,7 @@
     var selectionContent = document.getElementById("selectionContent");
     var replaceBtn = document.getElementById("replaceBtn");
     var statusToast = document.getElementById("statusToast");
+    var alignModeSelect = document.getElementById("alignMode");
 
     function setToast(message, type) {
         statusToast.textContent = message;
@@ -134,8 +135,7 @@
     function executeReplacement() {
         if (!currentSelection || currentSelection.items.length < 2) return;
 
-        var modeInput = document.querySelector('input[name="alignMode"]:checked');
-        var mode = modeInput ? modeInput.value : "absolute";
+        var mode = alignModeSelect ? alignModeSelect.value : "absolute";
 
         replaceBtn.disabled = true;
         setToast("Replacing...", "");

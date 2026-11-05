@@ -171,20 +171,26 @@ body {
     border-color: #555555;
 }
 
-/* Batch Mode */
-.batch-select {
+/* Dropdowns (Batch and Mode Select) */
+.batch-select,
+.mode-select {
     width: 100%;
     background: #222222;
     border: 1px solid #444444;
     color: #ffffff;
     padding: 4px 6px;
     border-radius: 3px;
-    font-size: 10px;
-    margin-bottom: 4px;
+    font-size: 10.5px;
     outline: none;
+    cursor: pointer;
 }
 
-.batch-select:focus {
+.batch-select {
+    margin-bottom: 4px;
+}
+
+.batch-select:focus,
+.mode-select:focus {
     border-color: #2680eb;
 }
 
@@ -192,51 +198,6 @@ body {
     font-size: 9px;
     color: #888888;
     line-height: 1.3;
-}
-
-/* Placement Mode (Compact Options) */
-.radio-group {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.radio-label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 10.5px;
-    color: #cccccc;
-    cursor: pointer;
-    padding: 3px 4px;
-    border-radius: 3px;
-    transition: background 0.1s ease;
-}
-
-.radio-label:hover {
-    background: #363636;
-    color: #ffffff;
-}
-
-.radio-label input[type="radio"] {
-    margin: 0;
-    accent-color: #2680eb;
-    cursor: pointer;
-}
-
-.radio-title {
-    font-weight: 500;
-}
-
-.radio-tag {
-    font-size: 8px;
-    text-transform: uppercase;
-    font-weight: 700;
-    padding: 1px 4px;
-    border-radius: 2px;
-    background: #1e3d64;
-    color: #8cc2ff;
-    margin-left: auto;
 }
 
 /* Action Area */

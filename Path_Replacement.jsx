@@ -217,19 +217,16 @@
 
     function createTransformFunction(mode, srcBounds, dstBounds) {
         if (mode === "absolute") {
-            // Keep source position and coordinates directly
             return function (pt) {
                 return [pt[0], pt[1]];
             };
         } else if (mode === "center") {
-            // Center on target in-place (keeps source scale & proportions)
             var dxCenter = dstBounds.centerX - srcBounds.centerX;
             var dyCenter = dstBounds.centerY - srcBounds.centerY;
             return function (pt) {
                 return [pt[0] + dxCenter, pt[1] + dyCenter];
             };
         } else if (mode === "fit") {
-            // Scale proportionally to fit inside target bounds & center
             var scaleVal = 1.0;
             if (srcBounds.width > 0.001 && srcBounds.height > 0.001) {
                 var scaleX = dstBounds.width / srcBounds.width;
@@ -249,7 +246,6 @@
                 ];
             };
         } else if (mode === "stretch") {
-            // Scale width and height to match target bounds
             var sx = (srcBounds.width > 0.001) ? (dstBounds.width / srcBounds.width) : 1.0;
             var sy = (srcBounds.height > 0.001) ? (dstBounds.height / srcBounds.height) : 1.0;
             return function (pt) {
@@ -385,28 +381,26 @@
             };
         }
 
-        // Placement Mode Panel
+        // Placement Mode Panel (Dropdown)
         var modePanel = dialog.add("panel", undefined, "Placement Mode");
-        modePanel.orientation = "column";
-        modePanel.alignChildren = ["left", "top"];
-        modePanel.spacing = 5;
+        modePanel.orientation = "row";
+        modePanel.alignChildren = ["left", "center"];
+        modePanel.spacing = 6;
         modePanel.margins = 10;
 
-        // Default: Source Position
-        var rbAbsolute = modePanel.add("radiobutton", undefined, "Source Position (Keep Original Coordinates) [Default]");
-        var rbCenter = modePanel.add("radiobutton", undefined, "Center on Target (In-Place Alignment)");
-        var rbFit = modePanel.add("radiobutton", undefined, "Fit to Target Bounds (Scale Proportionally)");
-        var rbStretch = modePanel.add("radiobutton", undefined, "Stretch to Target Bounds (Fill Bounds)");
+        modePanel.add("statictext", undefined, "Mode:");
 
-        rbAbsolute.value = true; // DEFAULT MODE
+        var modeDropdown = modePanel.add("dropdownlist", undefined, [
+            "Source Position",
+            "Center on Target",
+            "Fit to Target",
+            "Stretch to Target"
+        ]);
+        modeDropdown.selection = 0; // "Source Position" selected automatically
+        modeDropdown.alignment = ["fill", "center"];
 
-        rbAbsolute.helpTip = "Transfers the source path's exact coordinates directly to destination shapes.";
-        rbCenter.helpTip = "Centers the source shape's geometry onto each destination without altering original size.";
-        rbFit.helpTip = "Scales the source geometry proportionally to fit inside each target's bounding box.";
-        rbStretch.helpTip = "Scales the source geometry to match each target's width and height.";
-
-        // Notice Panel
-        var note = dialog.add("statictext", undefined, "• Styling, fills, strokes, and effects will be preserved.");
+        // Notice
+        dialog.add("statictext", undefined, "• Styling, fills, strokes, and effects will be preserved.");
 
         // Buttons
         var btnGroup = dialog.add("group");
@@ -443,10 +437,8 @@
 
         var srcBounds = getBoundsData(sourceItem);
 
-        var mode = "absolute";
-        if (rbCenter.value) mode = "center";
-        else if (rbFit.value) mode = "fit";
-        else if (rbStretch.value) mode = "stretch";
+        var modeMap = ["absolute", "center", "fit", "stretch"];
+        var mode = modeMap[modeDropdown.selection.index] || "absolute";
 
         // ---------------------------------------------------------------------
         // Execute Batch Replacement
