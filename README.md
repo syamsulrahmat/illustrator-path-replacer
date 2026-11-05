@@ -3,9 +3,12 @@
 [![Adobe Illustrator](https://img.shields.io/badge/Adobe%20Illustrator-CS6%20--%202026%2B-orange.svg)](https://www.adobe.com/products/illustrator.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows-lightgrey.svg)]()
+[![Type](https://img.shields.io/badge/Type-Dockable%20Panel%20%26%20JSX%20Script-brightgreen.svg)]()
 
 > **Copy and paste path geometry between shapes in Adobe Illustrator — just like in After Effects.**  
 > Transfer Bézier geometry 1-to-1 or batch-replace multiple target shapes across your artboard while preserving 100% of each destination object's appearance, fills, strokes, gradients, opacity, and live effects.
+
+Available as both a **Native Dockable Panel (CEP)** that snaps into your Illustrator workspace sidebars, and as a **Standalone JSX Script**.
 
 ---
 
@@ -25,6 +28,7 @@ In Adobe Illustrator, there has never been a native way to replace a shape's pat
 
 ## Features
 
+- **Dockable Panel UI:** Keep the panel permanently open in your workspace alongside Layers, Properties, and Appearance.
 - **1-to-1 Mode (2 Objects Selected):** Quick interactive swap between Top and Bottom shapes with an instant `⇄ Swap Roles` button.
 - **1-to-Many Batch Mode (3+ Objects Selected):** Pick one Source shape from a dropdown menu and batch-transform dozens of target shapes across your artboard in a single click.
 - **100% Appearance Preservation:**
@@ -49,21 +53,38 @@ In Adobe Illustrator, there has never been a native way to replace a shape's pat
 
 ## Installation
 
-### Method 1: Run Directly (No Restart Required)
-1. In Adobe Illustrator, open your document.
-2. Select your shapes.
-3. Go to **File > Scripts > Other Script...** (or press <kbd>Ctrl</kbd> + <kbd>F12</kbd> on Windows / <kbd>Cmd</kbd> + <kbd>F12</kbd> on macOS).
-4. Select `Path_Replacement.jsx`.
+### Option 1: Dockable Panel Extension (Recommended)
 
-### Method 2: Install into Illustrator Scripts Menu (Persistent)
-Copy `Path_Replacement.jsx` into your Adobe Illustrator Scripts directory:
+The dockable panel physically docks into your Illustrator interface under **Window > Extensions > Path Replacer**.
 
-- **Windows:**  
-  `C:\Program Files\Adobe\Adobe Illustrator [Version]\Presets\en_US\Scripts\`
-- **macOS:**  
-  `/Applications/Adobe Illustrator [Version]/Presets.localized/en_US/Scripts/`
+#### Windows
+1. Copy the folder `com.syamsulrahmat.pathreplacer` into your Adobe CEP extensions folder:
+   ```text
+   %APPDATA%\Adobe\CEP\extensions\
+   ```
+   *(e.g., `C:\Users\<YourUser>\AppData\Roaming\Adobe\CEP\extensions\com.syamsulrahmat.pathreplacer`)*
+2. Restart Adobe Illustrator.
+3. Open the panel from **Window > Extensions > Path Replacer**.
+4. Drag and snap the tab into your workspace dock alongside Layers or Properties.
 
-*Restart Illustrator once. The script will now be accessible directly from **File > Scripts > Path_Replacement**.*
+#### macOS
+1. Copy the folder `com.syamsulrahmat.pathreplacer` into:
+   ```text
+   ~/Library/Application Support/Adobe/CEP/extensions/
+   ```
+2. Restart Adobe Illustrator.
+3. Open the panel from **Window > Extensions > Path Replacer**.
+
+---
+
+### Option 2: Standalone JSX Script
+
+If you prefer running via a keyboard shortcut or the `File > Scripts` menu:
+
+1. Copy `Path_Replacement.jsx` into your Illustrator Scripts folder:
+   - **Windows:** `C:\Program Files\Adobe\Adobe Illustrator [Version]\Presets\en_US\Scripts\`
+   - **macOS:** `/Applications/Adobe Illustrator [Version]/Presets.localized/en_US/Scripts/`
+2. Restart Illustrator. The script will be available under **File > Scripts > Path_Replacement**.
 
 ---
 
@@ -73,21 +94,20 @@ Copy `Path_Replacement.jsx` into your Adobe Illustrator Scripts directory:
 1. Select two shapes using the **Selection Tool** (`V`) or **Direct Selection Tool** (`A`):
    - **Source:** The shape whose geometry you want to copy.
    - **Destination:** The shape whose geometry you want to replace.
-2. Run the script.
-3. The dialog shows the Top and Bottom shapes. Click **⇄ Swap Source & Destination** if you want to reverse roles.
-4. Select your alignment mode and click **Replace Path** (or press <kbd>Enter</kbd>).
+2. In the **Path Replacer** dockable panel (or modal script), click **⇄ Swap Roles** if you want to reverse source/target.
+3. Select your placement mode (e.g. *In-Place*) and click **Replace Path**.
 
 ### Batch Replacement (3+ Objects)
-1. Select 3 or more shapes across your artboard (e.g., 1 new icon and 10 existing shapes).
-2. Run the script.
-3. In the **Source Shape** dropdown, pick the shape to use as the template.
-4. Click **Replace All N Paths**. All destination shapes will be transformed in place, preserving their individual colors and positions.
+1. Select 3 or more shapes across your artboard (e.g., 1 template icon and 10 existing shapes).
+2. The panel automatically switches to **Batch Mode**.
+3. Select the template shape from the **Source Template** dropdown.
+4. Click **Replace All N Paths**. All destination shapes will be transformed in place, preserving their individual colors, styles, and positions.
 
 ---
 
 ## Compatibility
 
-- **Adobe Illustrator:** CS6, CC 2014, CC 2015, CC 2017, CC 2018, CC 2019, CC 2020, CC 2021, CC 2022, CC 2023, CC 2024, CC 2025, CC 2026+
+- **Adobe Illustrator:** CS6 through CC 2026+
 - **Operating Systems:** macOS and Windows
 
 ---

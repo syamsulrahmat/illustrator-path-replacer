@@ -1,0 +1,263 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1.4;
+    background-color: #2b2b2b;
+    color: #e0e0e0;
+    padding: 10px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #3c3c3c;
+    margin-bottom: 10px;
+}
+
+.header h1 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.header .icon {
+    font-size: 14px;
+    color: #2680eb;
+}
+
+.icon-btn {
+    background: transparent;
+    border: 1px solid #4a4a4a;
+    color: #d0d0d0;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.icon-btn:hover {
+    background: #3e3e3e;
+    color: #ffffff;
+    border-color: #5a5a5a;
+}
+
+/* Section Cards */
+.card {
+    background-color: #323232;
+    border: 1px solid #404040;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.card-title {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: #9c9c9c;
+    margin-bottom: 8px;
+}
+
+/* Status States */
+.empty-state {
+    text-align: center;
+    padding: 14px 6px;
+    color: #8c8c8c;
+    font-size: 11px;
+}
+
+.empty-state .hint {
+    margin-top: 4px;
+    font-size: 10px;
+    color: #6a6a6a;
+}
+
+/* Pair Mode */
+.pair-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.object-row {
+    background: #282828;
+    border: 1px solid #3a3a3a;
+    border-radius: 4px;
+    padding: 6px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.object-row.source {
+    border-left: 3px solid #2680eb;
+}
+
+.object-row.target {
+    border-left: 3px solid #2bb673;
+}
+
+.role-badge {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.role-badge.source { color: #59a6ff; }
+.role-badge.target { color: #58d68d; }
+
+.object-name {
+    font-size: 11px;
+    color: #ffffff;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.object-meta {
+    font-size: 10px;
+    color: #8c8c8c;
+}
+
+.swap-btn {
+    background: #3a3a3a;
+    border: 1px solid #4d4d4d;
+    color: #e0e0e0;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 11px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 2px;
+    transition: background 0.15s;
+}
+
+.swap-btn:hover {
+    background: #464646;
+    color: #ffffff;
+}
+
+/* Batch Mode */
+.batch-select {
+    width: 100%;
+    background: #252525;
+    border: 1px solid #4a4a4a;
+    color: #ffffff;
+    padding: 5px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    margin-bottom: 6px;
+    outline: none;
+}
+
+.batch-select:focus {
+    border-color: #2680eb;
+}
+
+.batch-info {
+    font-size: 10px;
+    color: #8c8c8c;
+    line-height: 1.3;
+}
+
+/* Radio Options */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 11px;
+    color: #d0d0d0;
+    cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+    margin-top: 2px;
+    accent-color: #2680eb;
+    cursor: pointer;
+}
+
+.radio-desc {
+    display: block;
+    font-size: 9px;
+    color: #7a7a7a;
+    margin-top: 1px;
+}
+
+/* Action Area */
+.actions {
+    margin-top: auto;
+    padding-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.primary-btn {
+    background: #2680eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    transition: background 0.15s ease, transform 0.05s ease;
+}
+
+.primary-btn:hover:not(:disabled) {
+    background: #1f6fce;
+}
+
+.primary-btn:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.primary-btn:disabled {
+    background: #404040;
+    color: #707070;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.status-toast {
+    font-size: 10px;
+    text-align: center;
+    min-height: 16px;
+    color: #8c8c8c;
+    transition: color 0.2s ease;
+}
+
+.status-toast.success { color: #58d68d; }
+.status-toast.error { color: #ff6b6b; }
