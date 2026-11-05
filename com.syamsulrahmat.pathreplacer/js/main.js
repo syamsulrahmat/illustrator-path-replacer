@@ -17,13 +17,13 @@
     }
 
     function refreshSelection() {
-        setToast("Checking selection...", "");
+        setToast("Checking...", "");
         csInterface.evalScript("PathReplacerHost.getSelectionState()", function (resultStr) {
             try {
                 var res = JSON.parse(resultStr);
                 if (res.status === "no_doc") {
                     currentSelection = null;
-                    selectionContent.innerHTML = '<div class="empty-state">No document open.<div class="hint">Open an Illustrator document to begin.</div></div>';
+                    selectionContent.innerHTML = '<div class="empty-state">No document open<div class="hint">Open a document to begin</div></div>';
                     replaceBtn.disabled = true;
                     replaceBtn.textContent = "Replace Path";
                     setToast("No document open", "");
@@ -32,7 +32,7 @@
 
                 if (res.status === "no_selection" || !res.items || res.items.length === 0) {
                     currentSelection = null;
-                    selectionContent.innerHTML = '<div class="empty-state">No shapes selected.<div class="hint">Select 2 or more shapes on canvas.</div></div>';
+                    selectionContent.innerHTML = '<div class="empty-state">No shapes selected<div class="hint">Select 2+ shapes on canvas</div></div>';
                     replaceBtn.disabled = true;
                     replaceBtn.textContent = "Replace Path";
                     setToast("No shapes selected", "");
@@ -41,8 +41,8 @@
 
                 if (res.count < 2) {
                     currentSelection = res;
-                    var warn = res.invalidCount > 0 ? " (Skipped " + res.invalidCount + " non-vector object)" : "";
-                    selectionContent.innerHTML = '<div class="empty-state">Only 1 shape selected' + warn + '.<div class="hint">Need at least 1 Source and 1 Destination.</div></div>';
+                    var warn = res.invalidCount > 0 ? " (" + res.invalidCount + " non-vector)" : "";
+                    selectionContent.innerHTML = '<div class="empty-state">Only 1 shape selected' + warn + '<div class="hint">Need Source + Target</div></div>';
                     replaceBtn.disabled = true;
                     replaceBtn.textContent = "Replace Path";
                     setToast("Select 1 more shape", "");
@@ -50,15 +50,14 @@
                 }
 
                 currentSelection = res;
-                // Clamp source index
                 if (sourceIndex >= res.items.length) {
                     sourceIndex = 0;
                 }
 
                 renderSelectionUI();
-                setToast("Ready (Single Ctrl+Z Undo)", "");
+                setToast("Ready (Ctrl+Z to Undo)", "");
             } catch (err) {
-                setToast("Error reading selection: " + err.message, "error");
+                setToast("Error: " + err.message, "error");
             }
         });
     }
@@ -77,17 +76,17 @@
 
             var html = '<div class="pair-container">';
             html += '<div class="object-row source">';
-            html += '<div class="role-badge source">Source (' + srcStack + ') - Geometry to copy</div>';
+            html += '<div class="role-badge source">Source (' + srcStack + ')</div>';
             html += '<div class="object-name">' + (srcItem.name || srcItem.type) + '</div>';
-            html += '<div class="object-meta">' + (srcItem.clipping ? '[Clip Mask] ' : '') + (srcItem.type === "PathItem" ? srcItem.points + " pts" : srcItem.subpaths + " subpaths") + ' • ' + (srcItem.layer || "Layer") + '</div>';
+            html += '<div class="object-meta">' + (srcItem.clipping ? '[Clip] ' : '') + (srcItem.type === "PathItem" ? srcItem.points + " pts" : srcItem.subpaths + " subpaths") + ' • ' + (srcItem.layer || "Layer") + '</div>';
             html += '</div>';
 
-            html += '<button id="swapBtn" class="swap-btn" title="Reverse Source and Destination">⇄ Swap Roles</button>';
+            html += '<button id="swapBtn" class="swap-btn" title="Reverse Source and Target">⇄ Swap Roles</button>';
 
             html += '<div class="object-row target">';
-            html += '<div class="role-badge target">Target (' + dstStack + ') - Appearance to keep</div>';
+            html += '<div class="role-badge target">Target (' + dstStack + ')</div>';
             html += '<div class="object-name">' + (dstItem.name || dstItem.type) + '</div>';
-            html += '<div class="object-meta">' + (dstItem.clipping ? '[Clip Mask] ' : '') + (dstItem.type === "PathItem" ? dstItem.points + " pts" : dstItem.subpaths + " subpaths") + ' • ' + (dstItem.layer || "Layer") + '</div>';
+            html += '<div class="object-meta">' + (dstItem.clipping ? '[Clip] ' : '') + (dstItem.type === "PathItem" ? dstItem.points + " pts" : dstItem.subpaths + " subpaths") + ' • ' + (dstItem.layer || "Layer") + '</div>';
             html += '</div>';
             html += '</div>';
 
@@ -103,7 +102,7 @@
         } else {
             // 1-to-Many Batch Mode
             var bHtml = '<div class="batch-container">';
-            bHtml += '<label class="card-title" style="display:block; margin-bottom:4px;">Source Template:</label>';
+            bHtml += '<label class="card-title">Source Shape (Copy from):</label>';
             bHtml += '<select id="batchSourceSelect" class="batch-select">';
             for (var i = 0; i < items.length; i++) {
                 var it = items[i];
@@ -113,17 +112,22 @@
             bHtml += '</select>';
 
             var targetCount = items.length - 1;
-            bHtml += '<div class="batch-info"><strong>' + targetCount + ' destinations</strong> will be transformed to match the geometry of the selected source shape.</div>';
+            bHtml += '<div class="batch-info"><strong>' + targetCount + ' target shapes</strong> will be replaced with Shape [' + (sourceIndex + 1) + '].</div>';
             bHtml += '</div>';
 
             selectionContent.innerHTML = bHtml;
 
             document.getElementById("batchSourceSelect").addEventListener("change", function (e) {
                 sourceIndex = parseInt(e.target.value, 10);
+                var tc = items.length - 1;
+                var infoEl = selectionContent.querySelector(".batch-info");
+                if (infoEl) {
+                    infoEl.innerHTML = '<strong>' + tc + ' target shapes</strong> will be replaced with Shape [' + (sourceIndex + 1) + '].';
+                }
             });
 
             replaceBtn.disabled = false;
-            replaceBtn.textContent = "Replace All " + targetCount + " Paths";
+            replaceBtn.textContent = "Replace All (" + targetCount + ")";
         }
     }
 
@@ -131,10 +135,10 @@
         if (!currentSelection || currentSelection.items.length < 2) return;
 
         var modeInput = document.querySelector('input[name="alignMode"]:checked');
-        var mode = modeInput ? modeInput.value : "center";
+        var mode = modeInput ? modeInput.value : "absolute";
 
         replaceBtn.disabled = true;
-        setToast("Replacing path geometry...", "");
+        setToast("Replacing...", "");
 
         var scriptCall = "PathReplacerHost.executeReplace(" + sourceIndex + ", '" + mode + "')";
         csInterface.evalScript(scriptCall, function (resultStr) {
@@ -142,13 +146,12 @@
             try {
                 var res = JSON.parse(resultStr);
                 if (res.status === "success") {
-                    var msg = "✓ Successfully replaced " + res.replacedCount + " path(s)!";
+                    var msg = "✓ Replaced " + res.replacedCount + " path(s)";
                     if (res.lockedSkipped > 0) {
-                        msg += " (Skipped " + res.lockedSkipped + " locked/hidden)";
+                        msg += " (" + res.lockedSkipped + " skipped)";
                     }
                     setToast(msg, "success");
-                    // Refresh view
-                    setTimeout(refreshSelection, 400);
+                    setTimeout(refreshSelection, 350);
                 } else {
                     setToast("Error: " + (res.message || "Failed"), "error");
                 }

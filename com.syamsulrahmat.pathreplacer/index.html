@@ -10,7 +10,7 @@
     <!-- Header -->
     <div class="header">
         <h1><span class="icon">⤾</span> Path Replacer</h1>
-        <button id="refreshBtn" class="icon-btn" title="Refresh Selection on Canvas">↻ Refresh</button>
+        <button id="refreshBtn" class="icon-btn" title="Refresh Selection">↻ Refresh</button>
     </div>
 
     <!-- Selection Section -->
@@ -19,42 +19,31 @@
         <div id="selectionContent">
             <div class="empty-state">
                 <div>No shapes selected</div>
-                <div class="hint">Select at least 2 vector shapes on canvas</div>
+                <div class="hint">Select 2+ shapes on canvas</div>
             </div>
         </div>
     </div>
 
-    <!-- Alignment Mode Section -->
+    <!-- Placement Mode Section -->
     <div class="card">
         <div class="card-title">Placement Mode</div>
         <div class="radio-group">
             <label class="radio-label">
-                <input type="radio" name="alignMode" value="center" checked>
-                <div>
-                    <div>In-Place (Center on Target)</div>
-                    <span class="radio-desc">Keep original size & center on destination</span>
-                </div>
+                <input type="radio" name="alignMode" value="absolute" checked>
+                <span class="radio-title">Source Position</span>
+                <span class="radio-tag">Default</span>
+            </label>
+            <label class="radio-label">
+                <input type="radio" name="alignMode" value="center">
+                <span class="radio-title">Center on Target</span>
             </label>
             <label class="radio-label">
                 <input type="radio" name="alignMode" value="fit">
-                <div>
-                    <div>Fit to Target Bounds</div>
-                    <span class="radio-desc">Scale proportionally inside target box</span>
-                </div>
+                <span class="radio-title">Fit to Target</span>
             </label>
             <label class="radio-label">
                 <input type="radio" name="alignMode" value="stretch">
-                <div>
-                    <div>Stretch to Target Bounds</div>
-                    <span class="radio-desc">Scale width & height to match target</span>
-                </div>
-            </label>
-            <label class="radio-label">
-                <input type="radio" name="alignMode" value="absolute">
-                <div>
-                    <div>Source Position (AE Style)</div>
-                    <span class="radio-desc">Keep source's exact document coordinates</span>
-                </div>
+                <span class="radio-title">Stretch to Target</span>
             </label>
         </div>
     </div>

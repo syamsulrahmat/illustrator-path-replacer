@@ -5,30 +5,17 @@
 [![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows-lightgrey.svg)]()
 [![Type](https://img.shields.io/badge/Type-Dockable%20Panel%20%26%20JSX%20Script-brightgreen.svg)]()
 
-> **Copy and paste path geometry between shapes in Adobe Illustrator — just like in After Effects.**  
-> Transfer Bézier geometry 1-to-1 or batch-replace multiple target shapes across your artboard while preserving 100% of each destination object's appearance, fills, strokes, gradients, opacity, and live effects.
+> **Copy and replace path geometry between shapes in Adobe Illustrator without losing styling.**  
+> Transfer Bézier geometry 1-to-1 or batch-replace multiple target shapes across your artwork while preserving 100% of each destination object's appearance, fills, strokes, gradients, opacity, and live effects.
 
-Available as both a **Native Dockable Panel (CEP)** that snaps into your Illustrator workspace sidebars, and as a **Standalone JSX Script**.
-
----
-
-## The Problem
-
-In Adobe After Effects, copying a path property from one shape/mask layer and pasting it into another instantly replaces the Bézier path without affecting styling or transform properties.
-
-In Adobe Illustrator, there has never been a native way to replace a shape's path geometry while keeping its appearance intact. Replacing a shape traditionally requires:
-- Redrawing or copy-pasting the new path,
-- Re-sampling or manually copying multi-fills, multi-strokes, gradients, and graphic styles,
-- Re-applying live effects, opacity masks, and blend modes,
-- Re-positioning and re-ordering in the layer tree.
-
-**Illustrator Path Replacer** solves this by mutating the destination object's path points directly in the Illustrator DOM, transferring source Bézier geometry while keeping appearance attributes, hierarchy, and clipping masks 100% intact.
+Available as both a **Native Dockable Panel** that snaps into your Illustrator workspace sidebars, and as a **Standalone JSX Script**.
 
 ---
 
 ## Features
 
 - **Dockable Panel UI:** Keep the panel permanently open in your workspace alongside Layers, Properties, and Appearance.
+- **Compact & Responsive:** Clean, space-efficient interface that fits narrow sidebar columns.
 - **1-to-1 Mode (2 Objects Selected):** Quick interactive swap between Top and Bottom shapes with an instant `⇄ Swap Roles` button.
 - **1-to-Many Batch Mode (3+ Objects Selected):** Pick one Source shape from a dropdown menu and batch-transform dozens of target shapes across your artboard in a single click.
 - **100% Appearance Preservation:**
@@ -42,11 +29,11 @@ In Adobe Illustrator, there has never been a native way to replace a shape's pat
   - PathItem ⇄ PathItem
   - CompoundPathItem ⇄ CompoundPathItem
   - Automatically wraps a single path into a compound path if the source contains multiple subpaths.
-- **Flexible Alignment Modes:**
-  - **Center on Target (In-Place)** *(Default)*: Centers the new geometry onto each target's center, preserving source scale and proportions.
-  - **Keep Source Position (AE-Style Coordinates)**: Applies raw document coordinates directly.
-  - **Fit to Target Bounds**: Scales geometry proportionally to fit inside each target's bounding box.
-  - **Stretch to Target Bounds**: Scales width and height to match each target's bounding box.
+- **Flexible Placement Modes:**
+  - **Source Position** *(Default)*: Places the path at the source shape's exact document coordinates.
+  - **Center on Target**: Centers the new geometry onto each target's center, preserving source scale and proportions.
+  - **Fit to Target**: Scales geometry proportionally to fit inside each target's bounding box.
+  - **Stretch to Target**: Scales width and height to match each target's bounding box.
 - **Single Undo:** The entire batch operation is grouped into a single Undo entry (`Ctrl+Z` / `Cmd+Z`).
 
 ---
@@ -95,13 +82,13 @@ If you prefer running via a keyboard shortcut or the `File > Scripts` menu:
    - **Source:** The shape whose geometry you want to copy.
    - **Destination:** The shape whose geometry you want to replace.
 2. In the **Path Replacer** dockable panel (or modal script), click **⇄ Swap Roles** if you want to reverse source/target.
-3. Select your placement mode (e.g. *In-Place*) and click **Replace Path**.
+3. Select your placement mode (defaults to **Source Position**) and click **Replace Path**.
 
 ### Batch Replacement (3+ Objects)
-1. Select 3 or more shapes across your artboard (e.g., 1 template icon and 10 existing shapes).
+1. Select 3 or more shapes across your artboard.
 2. The panel automatically switches to **Batch Mode**.
-3. Select the template shape from the **Source Template** dropdown.
-4. Click **Replace All N Paths**. All destination shapes will be transformed in place, preserving their individual colors, styles, and positions.
+3. Select the template shape from the **Source** dropdown.
+4. Click **Replace All (N)**. All destination shapes will be transformed, preserving their individual colors, styles, and appearances.
 
 ---
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ExtensionManifest Version="7.0" ExtensionBundleId="com.syamsulrahmat.pathreplacer" ExtensionBundleVersion="1.0.0"
+<ExtensionManifest Version="7.0" ExtensionBundleId="com.syamsulrahmat.pathreplacer" ExtensionBundleVersion="1.0.1"
     ExtensionBundleName="Path Replacer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <ExtensionList>
-        <Extension Id="com.syamsulrahmat.pathreplacer.panel" Version="1.0.0" />
+        <Extension Id="com.syamsulrahmat.pathreplacer.panel" Version="1.0.1" />
     </ExtensionList>
     <ExecutionEnvironment>
         <HostList>
@@ -33,12 +33,12 @@
                     <Menu>Path Replacer</Menu>
                     <Geometry>
                         <Size>
-                            <Height>480</Height>
-                            <Width>280</Width>
+                            <Height>360</Height>
+                            <Width>230</Width>
                         </Size>
                         <MinSize>
-                            <Height>300</Height>
-                            <Width>220</Width>
+                            <Height>240</Height>
+                            <Width>180</Width>
                         </MinSize>
                         <MaxSize>
                             <Height>1400</Height>
